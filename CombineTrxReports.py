@@ -14,6 +14,7 @@ def main():
     if files.endswith("\\"):
         files = files[:-1]
     combinedReport = args[2]
+    combinedReport = combinedReport.lower()
     if not combinedReport.endswith(".trx"):
         print("Can only merge to trx report, please provide a file path with trx extension")
         quit()        
@@ -109,17 +110,14 @@ def main():
               passed += int(counter_1.get("passed"))
               executed += int(counter_1.get("executed"))
               total += int(counter_1.get("total"))
-            
+
+              print("total:" + counter_1.get("total"))
+              print("passed:" + counter_1.get("passed"))
+              print("failed:" + counter_1.get("failed"))
               
               testDefinictions_array_1 = testRun_1.find("resp:TestDefinitions", namespaces=namespaces).getchildren()
               testEntries_array_1 = testRun_1.find("resp:TestEntries", namespaces=namespaces).getchildren()
               results_array_1 = testRun_1.find("resp:Results", namespaces=namespaces).getchildren()
-
-
-              print(len(testDefinictions_array_1))
-              print(len(testEntries_array_1))
-              print(len(results_array_1))
-              
 
               for definition in testDefinictions_array_1:
                         testDefinictions_array.append(definition)
@@ -158,6 +156,10 @@ def main():
 
     os.remove(files +"\\temp.trx")
 
+    print(combinedReport)
+    print("total:{}".format(total))
+    print("passed:{}".format(passed))
+    print("failed:{}".format(failed))
 
 if __name__ == "__main__":
     main()
